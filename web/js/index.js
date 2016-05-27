@@ -22,6 +22,8 @@ ReactDOM.render(
     <Carousel
         data={carouselData}
         time={3000}
+        width={300}
+        height={163}
     />,
     document.getElementById('main')
 );

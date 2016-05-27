@@ -1,6 +1,23 @@
 import React from 'react';
 import c from 'classnames';
 
+const noop = function () {}
+
+const defaults = {
+    data: {},
+    width: 300,
+    height: 300,
+    autoplay: false,
+    autoplaySpeed: 5000,
+    fade: false,
+    initialSlide: 0,
+    infinite: true,
+    direction: 'horizontal',
+    onInit: noop,
+    beforeChange: noop,
+    afterChange: noop,
+}
+
 export default class Carousel extends React.Component {
     constructor(){
         super()
