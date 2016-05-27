@@ -1,5 +1,5 @@
-import React from 'react'
-import c from 'classnames'
+import React from 'react';
+import c from 'classnames';
 
 export default class Carousel extends React.Component {
     constructor(){
@@ -13,26 +13,32 @@ export default class Carousel extends React.Component {
     }
 
     nextSlide() {
-        let curActiveSlide = this.state.activeSlide;
-        let max = this.props.data.length;
+        let curActiveSlide = this.state.activeSlide
+        let max = this.props.data.length
         this.setState({
              activeSlide: curActiveSlide >= max - 1 ? 0 : curActiveSlide + 1,
         })
     }
 
     previousSlide() {
-        let curActiveSlide = this.state.activeSlide;
-        let max = this.props.data.length;
+        let curActiveSlide = this.state.activeSlide
+        let max = this.props.data.length
         this.setState({
              activeSlide: curActiveSlide === 0 ? max - 1 : curActiveSlide - 1,
         })
     }
 
+    handlePrevious(evt) {
+        this.previousSlide()
+    }
+
+    handleNext(evt) {
+        this.nextSlide()
+    }
+
     render() {
-        let me = this;
         let carouselClass = c({
             'carousel-component': true,
-            'show': this.state.show,
         })
 
         let slides = this.props.data.map((slide, idx) => <Slide key={slide.link} {...slide} active={this.state.activeSlide === idx} />)
@@ -40,6 +46,8 @@ export default class Carousel extends React.Component {
         return (
             <div className="carousel-component">
                 {slides}
+                <i className="carousel-btn-left carousel-btn" onClick={::this.handlePrevious}></i>
+                <i className="carousel-btn-right carousel-btn" onClick={::this.handleNext}></i>
             </div>
         )
     }
@@ -48,6 +56,12 @@ export default class Carousel extends React.Component {
 class Slide extends React.Component {
     constructor() {
         super()
+        this.state = {
+            startX: 0,
+            startY: 0, 
+            endX: 0, 
+            endY: 0,
+        }
     }
 
     componentDidMount() {
@@ -55,9 +69,23 @@ class Slide extends React.Component {
     }
 
     render () {
+        let slideClass = c({
+            slide: true,
+            hide: !this.props.active,
+        })
+
+        let style = {
+            position: 'absolute',
+            top: this.state.y,
+            left: this.state.x,
+        }
+
         return (
-            <div>
-                <a href={this.props.link}>
+            <div
+                className={slideClass}
+                style={style}
+            >
+                <a href={this.props.link} target="_blank">
                     <img src={this.props.backgroundUrl} />
                 </a>
             </div>

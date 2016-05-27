@@ -1,0 +1,48 @@
+.carousel-component {
+    position: relative;
+    width: 167px;
+    height: 300px;
+    overflow: hidden;
+}
+
+.carousel-btn {
+    position: absolute;
+    display: inline-block;
+    z-index: 50;
+    width: 30px;
+    height: 30px;
+    top: 140px;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.carousel-btn-left {
+    background-image: url('/web/assets/left_icon.png');
+    left: 10px;
+
+    &:hover {
+        background-image: url('/web/assets/left_icon_hover.png');
+    }
+}
+
+.carousel-btn-right {
+    background-image: url('/web/assets/right_icon.png');
+    right: 10px;
+
+    &:hover {
+        background-image: url('/web/assets/right_icon_hover.png');
+    }
+}
+
+.slide {
+    transition: all 1s;
+    opacity: 1;
+    visibility: visible;
+
+    &.hide {
+        opacity: 0;
+        visibility: hidden;
+    }
+}

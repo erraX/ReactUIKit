@@ -5,15 +5,15 @@ import Carousel from 'components/carousel/Carousel';
 
 const carouselData = [
     {
-        backgroundUrl: '/assets/bg1.png',
+        backgroundUrl: '/web/assets/1.png',
         link: 'http://www.baidu.com',
     },
     {
-        backgroundUrl: '/assets/bg2.png',
+        backgroundUrl: '/web/assets/2.png',
         link: 'http://www.zhihu.com',
     },
     {
-        backgroundUrl: '/assets/bg2.png',
+        backgroundUrl: '/web/assets/3.png',
         link: 'http://www.sina.com.cn',
     },
 ];
