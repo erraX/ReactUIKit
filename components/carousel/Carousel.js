@@ -1,29 +1,30 @@
-import React from 'react';
-import c from 'classnames';
+import React from 'react'
+import c from 'classnames'
+import u from '../../util/util'
 
 const noop = function () {}
 
-const defaults = {
-    data: {},
-    width: 300,
-    height: 300,
-    autoplay: false,
-    autoplaySpeed: 5000,
-    fade: false,
-    initialSlide: 0,
-    infinite: true,
-    direction: 'horizontal',
-    onInit: noop,
-    beforeChange: noop,
-    afterChange: noop,
-}
-
 export default class Carousel extends React.Component {
-    constructor(){
+    constructor() {
         super()
         this.state = {
             activeSlide: 0,
         }
+    }
+
+    static defaultProps = {
+        data: {},
+        width: 300,
+        height: 300,
+        autoplay: false,
+        autoplaySpeed: 5000,
+        fade: false,
+        initialSlide: 0,
+        infinite: true,
+        direction: 'horizontal',
+        onInit: noop,
+        beforeChange: noop,
+        afterChange: noop,
     }
 
     componentDidMount() {
@@ -54,11 +55,25 @@ export default class Carousel extends React.Component {
     }
 
     render() {
+        const props = this.props;
+        const state = this.state;
+
         let carouselClass = c({
             'carousel-component': true,
         })
 
-        let slides = this.props.data.map((slide, idx) => <Slide key={slide.link} {...slide} active={this.state.activeSlide === idx} />)
+        let slides = this.props.data.map((slide, idx) =>
+            <Slide
+                key={slide.link}
+                {...slide}
+                direction={props.direction}
+                width={props.width}
+                height={props.height}
+                active={state.activeSlide === idx}
+                idx={idx}
+                activeIdx={state.activeSlide}
+            />
+        )
 
         return (
             <div className="carousel-component">
@@ -73,28 +88,33 @@ export default class Carousel extends React.Component {
 class Slide extends React.Component {
     constructor() {
         super()
-        this.state = {
-            startX: 0,
-            startY: 0, 
-            endX: 0, 
-            endY: 0,
-        }
     }
 
-    componentDidMount() {
+    translate() {
+        const props = this.props
+        let offset = 0
 
+        if (props.direction === 'horizontal') {
+            offset = (props.idx - props.activeIdx) * props.width
+        }
+        else {
+            offset = (props.idx - props.activeIdx) * props.height
+        }
+
+        return offset;
     }
 
     render () {
+        const props = this.props
+
         let slideClass = c({
             slide: true,
-            hide: !this.props.active,
+            // hide: !props.active,
         })
 
         let style = {
             position: 'absolute',
-            top: this.state.y,
-            left: this.state.x,
+            transform: props.direction === 'horizontal' ? `translateX(${this.translate()}px)` : `translateY(${this.translate()}px)`
         }
 
         return (
@@ -103,7 +123,7 @@ class Slide extends React.Component {
                 style={style}
             >
                 <a href={this.props.link} target="_blank">
-                    <img src={this.props.backgroundUrl} />
+                    <img src={props.backgroundUrl} />
                 </a>
             </div>
         )
