@@ -62,17 +62,18 @@ export default class Carousel extends React.Component {
             'carousel-component': true,
         })
 
-        let slides = this.props.data.map((slide, idx) =>
-            <Slide
-                key={slide.link}
-                {...slide}
-                direction={props.direction}
-                width={props.width}
-                height={props.height}
-                active={state.activeSlide === idx}
-                idx={idx}
-                activeIdx={state.activeSlide}
-            />
+        let slides = this.props.data.map(
+            (slide, idx) =>
+                <Slide
+                    key={slide.link}
+                    {...slide}
+                    direction={props.direction}
+                    width={props.width}
+                    height={props.height}
+                    active={state.activeSlide === idx}
+                    idx={idx}
+                    activeIdx={state.activeSlide}
+                />
         )
 
         return (
